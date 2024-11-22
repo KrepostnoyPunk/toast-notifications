@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toast Notifications</title>
+    <link rel="icon" href="mylabel.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div class="bar"></div>
+
+    <div class="notification notification--success">
+        <div class="message">
+            <i class="fa-solid fa-circle-check fa-lg"></i>
+            <p>Success: This is a success toast!</p>
+        </div>
+        
+    </div>
+
+    <div class="notification notification--info">
+        <div class="message">
+            <i class="fa-solid fa-circle-info fa-lg"></i>
+            <p>Info: This is an info toast!</p>
+        </div>
+        
+    </div>
+
+    <div class="notification notification--warning">
+        <div class="message">
+            <i class="fa-solid fa-triangle-exclamation fa-lg"></i>
+            <p>Warning: This is a warning toast!</p>
+        </div>
+        
+    </div>
+
+    <div class="notification notification--error">
+        <div class="message">
+            <i class="fa-solid fa-circle-xmark fa-lg"></i>
+            <p>Error: This is an error toast!</p>
+        </div>
+        
+    </div>
+
+    <div class="btns__container">
+        <button class="btn btn--success">Success</button>
+        <button class="btn btn--info">Info</button>
+        <button class="btn btn--warning">Warning</button>
+        <button class="btn btn--error">Error</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
