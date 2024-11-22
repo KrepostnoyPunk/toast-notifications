@@ -1,50 +1,55 @@
-const successBtnEl = document.querySelector('.btn--success')
-const infoBtnEl = document.querySelector('.btn--info')
-const warningBtnEl = document.querySelector('.btn--warning')
-const errorBtnEl = document.querySelector('.btn--error')
+const btnsEls = document.querySelectorAll('.btn')
+const notificationsListEl = document.querySelector('.notification-list')
 
-const successEl = document.querySelector('.notification--success')
-const infoEl = document.querySelector('.notification--info')
-const warningEl = document.querySelector('.notification--warning')
-const errorEl = document.querySelector('.notification--error')
-
-const barEl = document.querySelector('.bar')
-
-const fadeTime = 8000;
-
-document.addEventListener('click', (event) => {
-    if(event.target === successBtnEl){
-        animateIn(successEl)
-    }
-
-    if(event.target === infoBtnEl){
-        animateIn(infoEl)
-    }
-
-    if(event.target === warningBtnEl){
-        animateIn(warningEl)
-    }
-
-    if(event.target === errorBtnEl){
-        animateIn(errorEl)    }
+btnsEls.forEach(btn => { // на каждую кнопку добавляем обработчик события клика...
+    btn.addEventListener('click', () => createToast(btn.id)) // при срабатывании которого вызывается функция которая аргументом принимает значение id отдельной кнопки на каждой итерации
 })
 
-function animateIn(element){
-    element.style.display = 'block'
-    element.style.animation = `slidein 1.5s`
-    element.append(barEl)
-    barEl.style.display = `block`
-    barEl.style.animation = `barFade ${fadeTime / 1000}s`
-    setTimeout(() => {
-        barEl.style.display = `none`
-        animateOut(element)
-    }, fadeTime);
+function createToast(id){ // id в данном случае это идентификатор типа уведомления (успех, ошибка...)
+
+    const states = { // объект состояний уведомлений
+        success: {
+            icon: 'fa-circle-check', // иконка
+            text: 'Success: This is a success toast!' // соответствующий состоянию текст
+        },
+        info: {
+            icon: 'fa-circle-info',
+            text: 'Info: This is an info toast!'
+        },
+        warning: {
+            icon: 'fa-triangle-exclamation',
+            text: 'Warning: This is a warning toast!'
+        },
+        error: {
+            icon: 'fa-circle-xmark',
+            text: 'Success: This is an error toast!'
+        },
+    }
+
+    let {icon, text} = states[id] // деструктурируем значения из вложенных объектов по id которое совпадает с названиями объектов (btn.id = info === info: {...})
+    
+    let toastEl = document.createElement('li') // создаем элемент списка
+
+    toastEl.classList.add('notification', `${id}`) // добавляем классы которые стилизуют этот элемент должным образом, первый - базовый класс, второй - модификатор для определенного состояния
+
+    // заполняем элемент списка базовой разметкой + шаблон со специфичными иконкой и текстом из определенного объекта состояния
+    toastEl.innerHTML = ` 
+        <div class="message">
+            <i class="fa-solid ${icon} fa-lg"></i>
+            <p>${text}</p>
+        </div>
+    `
+    notificationsListEl.append(toastEl) // добавляем в список созданный нами элемент уведомления
+
+    return removeToast(toastEl) // передаем в функцию удаления сам элемент уведомления
 }
 
-function animateOut(element){
-    element.style.animation = `slideout 1.5s`
+function removeToast(element){
     setTimeout(() => {
-        element.style.display = 'none'
-        barEl.style.display = `block`
-    }, 500);
+        element.style.animation = 'slideout 2s' // через 7 секунд изменить и выполнить анимацию исчезновения элемента уведомления
+    }, 7000); 
+
+    setTimeout(() => {
+        element.remove() // после исчезновения уведомления из поля зрения - удалить элемент уведомления
+    }, 8010);
 }
